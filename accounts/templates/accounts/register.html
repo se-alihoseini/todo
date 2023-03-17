@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+          <div class="container py-5 h-100">
+            <div class="card">
+              <div class="card-header p-3">
+                  <p>if you have an account : </p>
+                <a href="{% url 'accounts:user_login_view' %}" class="btn btn-success mb-0">login</a>
+              </div>
+              <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
+                  <form method="post" action="" novalidate>
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <input type="submit" value="register">
+                  </form>
+              </div>
+            </div>
+          </div>
+{% endblock %}

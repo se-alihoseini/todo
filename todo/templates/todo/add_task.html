@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+          <div class="container py-5 h-100">
+            <div class="card">
+                <div class="card-header p-3">
+                <a href="{% url 'home:home_view' %}" class="btn btn-success mb-0">Home</a>
+              </div>
+              <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; width: 500px; align-self: center;">
+                  <form method="post" action="" novalidate enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      {{ image_form.as_p }}
+                      <input type="submit" class="btn btn-primary" value="add" >
+                  </form>
+              </div>
+            </div>
+          </div>
+{% endblock %}

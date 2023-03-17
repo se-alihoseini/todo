@@ -1,0 +1,51 @@
+{% include 'base.html' %}
+
+{% block content %}
+
+      <div class="container py-5 h-100">
+            <div class="card">
+              <div class="card-header p-3">
+                <a href="{% url 'home:home_view' %}" class="btn btn-light mb-0">Hello {{ user }}</a>
+                <a href="{% url 'todo:add_task' %}" class="btn btn-success mb-0">Add New Task</a>
+                <a href="{% url 'accounts:user_logout_view' %}" class="btn btn-danger mb-0">logout</a>
+                <a href="{% url 'todo:old_task' %}" class="btn btn-dark mb-0">old tasks</a>
+              </div>
+              <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; ">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {% for task in tasks %}
+                    <tr class="fw-normal">
+                      <th>
+                          <a href="{% url 'todo:detail_task' task.id%}" class="ms-2">{{ task.name }}</a>
+                      </th>
+                      <td class="align-middle">
+                          {{ task.description }}
+                      </td>
+                        <td class="align-middle">
+                            {{ task.date }}
+                        </td>
+                      <td class="align-middle">
+                        <a href="{% url 'todo:done_task' task.id%}">Done</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+
+{% endblock %}

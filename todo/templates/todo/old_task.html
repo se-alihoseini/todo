@@ -1,0 +1,88 @@
+{% include 'base.html' %}
+
+{% block content %}
+
+      <div class="container py-5 h-100">
+            <div class="card">
+
+                <div class="card-header p-3">
+                    <form method="GET" action="#">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                              <input type="search" class="form-control" placeholder="Title" id="Title_search_id" name="Title_search">
+                            </div>
+                            <div class="col">
+                              <input type="search" class="form-control" placeholder="Description" id="Description_search_id" name="Description_search">
+                            </div>
+                            <div class="col">
+                              <input type="date" class="form-control" placeholder="from : mm/dd/yyyy" id="sdate_search_id" name="sdate_search">
+                            </div>
+                            <div class="col">
+                              <input type="date" class="form-control" placeholder="to : mm/dd/yyyy" id="edate_search_id" name="edate_search">
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="status_search_id" name="status_search" value="yes" {{ checked }}>
+                                    <label class="form-check-label" for="mySwitch">just done</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <button class="btn btn-primary" type="submit">search</button>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+
+                <div class="card-header p-3">
+                <a href="{% url 'home:home_view' %}" class="btn btn-light mb-0">Hello {{ user }}</a>
+                <a href="{% url 'todo:add_task' %}" class="btn btn-success mb-0">Add New Task</a>
+                <a href="{% url 'accounts:user_logout_view' %}" class="btn btn-danger mb-0">logout</a>
+                <a href="{% url 'todo:old_task' %}" class="btn btn-dark mb-0">old tasks</a>
+              </div>
+              <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; ">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {% for task in tasks %}
+                    <tr class="fw-normal">
+                      <th>
+                          <a href="{% url 'todo:detail_task' task.id%}" class="ms-2">{{ task.name }}</a>
+                      </th>
+                      <td class="align-middle">
+                          {{ task.description }}
+                      </td>
+                        <td class="align-middle">
+                            {{ task.date }}
+                        </td>
+                      <td class="align-middle">
+                          {% if task.is_active %}
+                              open
+                          {% endif %}
+                      {% if not task.is_active %}
+                          done
+                      {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+
+{% endblock %}
